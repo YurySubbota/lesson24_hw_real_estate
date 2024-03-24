@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+            <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: none;
+                padding: 10px;
+            }
+            .profile-item {
+                display: flex;
+                border: none;
+                margin: 10px 0;
+                padding: 10px;
+            }
+            .profile-image {
+                width: 200px;
+                height: 150px;
+                margin-right: 10px;
+            }
+
+            .profile-description {
+                font-size: 14px;
+                line-height: 5px;
+            }
+        </style>
+
+        <div class="profile-item">
+            {% if deal_request.buyer.profile.image %}
+                <img src="/media/{{ deal_request.buyer.profile.image }}" alt="" class="profile-image">
+            {% else %}
+                <img src="/media/{{ default_jpg }}" alt="" class="profile-image">
+            {% endif %}
+            <div>
+                <p class="profile-description">buyer: {{ deal_request.buyer }}</p>
+                <p class="profile-description">first_name: {{ deal_request.buyer.profile.first_name }}</p>
+                <p class="profile-description">last_name: {{ deal_request.buyer.profile.last_name }}</p>
+                <p class="profile-description">email: {{ deal_request.buyer.profile.email }}</p>
+                <p class="profile-description">phone_number: {{ deal_request.buyer.profile.phone_number }}</p>
+            </div>
+        </div>
+        <hr>
+        <h3>{{ deal_request.suggest_text }}</h3>
+        <hr>
+        <div class="estate-item">
+            <div>
+                <h2 class="estate-title">Real Estate for {{ deal_request.estate.type_of_deal }}</h2>
+                <p class="estate-description">city_district: {{ deal_request.estate.city_district }}</p>
+                <p class="estate-description">metro: {{ deal_request.estate.metro }}</p>
+                <p class="estate-description">street: {{ deal_request.estate.street }}</p>
+                <p class="estate-description">building_number: {{ deal_request.estate.building_number }}</p>
+                <p class="estate-description">floor: {{ deal_request.estate.floor }}/{{ deal_request.estate.floors_in_house }}</p>
+                <p class="estate-description">rooms: {{ deal_request.estate.rooms }}</p>
+                <p class="estate-description">area_of_premise: {{ deal_request.estate.area_of_premise }}</p>
+                <p class="estate-description">bathroom: {{ deal_request.estate.bathroom }}</p>
+                <p class="estate-description">balcony: {{ deal_request.estate.balcony }}</p>
+                <p class="estate-description">created_at: {{ deal_request.estate.created_at }}</p>
+            </div>
+
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                }
+                header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-bottom: none;
+                    padding: 10px;
+                }
+                .photo-item {
+                    display: flex;
+                    border: none;
+                    margin: 10px 0;
+                    padding: 10px;
+                }
+                .photo-image {
+                    width: 400px;
+                    height: 300px;
+                    margin-right: 10px;
+                }
+
+            </style>
+            <div class="photo-item">
+                <img src="/media/{{ deal_request.estate.title_photo }}" class="photo-image" alt="" style="{width: 400px; height: 300px; margin-right: 10px;}">
+                {% for photo in photos %}
+                    <img src="/media/{{ photo.photo }}" class="photo-image" alt="" style="{width: 400px; height: 300px; margin-right: 10px;}">
+                {% endfor %}
+            </div>
+        </div>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for deal_request in all_messages %}
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid black;
+                padding: 10px;
+            }
+            .deal_request-item {
+                display: flex;
+                border: 1px solid black;
+                margin: 10px 0;
+                padding: 10px;
+            }
+            .deal_request-image {
+                width: 200px;
+                height: 150px;
+                margin-right: 10px;
+            }
+            .deal_request-title {
+                font-weight: bold;
+                font-size: 18px;
+            }
+            .deal_request-description {
+                font-size: 14px;
+                line-height: 5px;
+            }
+        </style>
+
+        <div class="deal_request-item">
+            {% if deal_request.buyer.profile.image %}
+                <img src="/media/{{ deal_request.buyer.profile.image }}" alt="" class="deal_request-image">
+            {% else %}
+                <img src="/media/{{ default_jpg }}" alt="" class="deal_request-image">
+            {% endif %}
+            <div>
+                <h2 class="deal_request-title">Message by</h2>
+                <p class="deal_request-description">buyer: {{ deal_request.buyer }}</p>
+                <p class="deal_request-description">Real Estate for {{ deal_request.estate.type_of_deal }}</p>
+                <p class="deal_request-description">created_at: {{ deal_request.created_at }}</p>
+                {% if deal_request.is_read == True %}
+                    <p class="deal_request-description">was read</p>
+                {% else %}
+                    <p class="deal_request-description" style="color: red">was not read</p>
+                {% endif %}
+                <a href="{% url 'read_detail_message' deal_request_id=deal_request.id %}">Detail</a>
+            </div>
+        </div>
+    {% endfor %}
+
+
+{% endblock %}
+
+
+

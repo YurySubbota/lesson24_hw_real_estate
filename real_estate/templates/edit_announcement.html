@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+      <a href="{% url 'delete_announcement' estate_id=estate.id %}">Delete Announcement</a>
+    <h2>Edit Announcement</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
+        <a href="{% url 'add_photo' estate_id=estate.id %}">Add more photo</a>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+{% endblock %}

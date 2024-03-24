@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% include 'estate_filters.html' %}
+
+
+    {% for estate in estates %}
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid black;
+                padding: 10px;
+            }
+            .estate-item {
+                display: flex;
+                border: 1px solid black;
+                margin: 10px 0;
+                padding: 10px;
+            }
+            .estate-image {
+                width: 200px;
+                height: 150px;
+                margin-right: 10px;
+            }
+            .estate-title {
+                font-weight: bold;
+                font-size: 18px;
+            }
+            .estate-description {
+                font-size: 14px;
+                line-height: 5px;
+            }
+        </style>
+
+        <div class="estate-item">
+            {% if estate.title_photo %}
+                <img src="/media/{{ estate.title_photo }}" alt="" class="estate-image">
+            {% else %}
+                <img src="/media/{{ default_jpg }}" alt="" class="estate-image">
+            {% endif %}
+            <div>
+                <h2 class="estate-title">Real Estate for {{ estate.type_of_deal }}</h2>
+                <p class="estate-description">city_district: {{ estate.city_district }}</p>
+                <p class="estate-description">metro: {{ estate.metro }}</p>
+                <p class="estate-description">street: {{ estate.street }}</p>
+                <p class="estate-description">floor: {{ estate.floor }}/{{ estate.floors_in_house }}</p>
+                <p class="estate-description">rooms: {{ estate.rooms }}</p>
+                <p class="estate-description">rooms: {{ estate.created_at }}</p>
+                <a href="{% url 'detail_estate' estate_id=estate.id %}">Detail</a>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% include 'pagination.html' with page=estates %}
+
+
+
+
+{% endblock %}

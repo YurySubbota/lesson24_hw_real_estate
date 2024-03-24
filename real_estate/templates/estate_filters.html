@@ -1,0 +1,65 @@
+<form action="" method="get">
+    <label for="order">sorting:</label>
+    <select id="order" name="order">
+        <option value="desc" {% if request.GET.order == 'desc' %}selected{% endif %}>New first</option>
+        <option value="asc" {% if request.GET.order == 'asc' %}selected{% endif %}>Old first</option>
+    </select>
+    <button>Submit</button><hr>
+
+    <label for="type_of_deal">type_of_deal:</label>
+    <select id="type_of_deal" name="type_of_deal">
+        <option value="" {% if request.GET.type_of_deal == '' %}selected{% endif %}>All</option>
+        <option value="rent" {% if request.GET.type_of_deal == 'rent' %}selected{% endif %}>Rent</option>
+        <option value="sale" {% if request.GET.type_of_deal == 'sale' %}selected{% endif %}>Sale</option>
+    </select>
+
+    {% if city_district %}
+        <label for="city_district__city_district">city_district:</label>
+        <select id="city_district__city_district" name="city_district__city_district">
+        <option value="" {% if request.GET.city_district__city_district == '' %}selected{% endif %}>All</option>
+        {% for district in city_district%}
+            <option value="{{ district }}" {% if request.GET.city_district__city_district == "{{district}}" %}selected{% endif %}>{{ district }}</option>
+        {% endfor %}
+    </select>
+    {% endif %}
+
+    {% if metro_station %}
+        <label for="metro__metro_station">metro_station:</label>
+        <select id="metro__metro_station" name="metro__metro_station">
+        <option value="" {% if request.GET.metro__metro_station == '' %}selected{% endif %}>All</option>
+        {% for station in metro_station%}
+            <option value="{{ station }}" {% if request.GET.metro__metro_station == '{{station}}' %}selected{% endif %}>{{ station }}</option>
+        {% endfor %}
+    </select>
+    {% endif %}<br>
+
+    <label for="floor__gte">Floors:</label>
+    <select id="floor__gte" name="floor__gte">
+        <option value="1" {% if request.GET.floor__gte == '1' %}selected{% endif %}>All</option>
+        <option value="2" {% if request.GET.floor__gte == '2' %}selected{% endif %}>Not first</option>
+    </select>
+
+    <label for="rooms">rooms:</label>
+    <select id="rooms" name="rooms">
+        <option value="" {% if request.GET.rooms == '' %}selected{% endif %}>All</option>
+        <option value="1" {% if request.GET.rooms == '1' %}selected{% endif %}>1</option>
+        <option value="2" {% if request.GET.rooms == '2' %}selected{% endif %}>2</option>
+        <option value="3" {% if request.GET.rooms == '3' %}selected{% endif %}>3</option>
+        <option value="4" {% if request.GET.rooms == '4' %}selected{% endif %}>4</option>
+        <option value="5_and_more" {% if request.GET.rooms == '5_and_more' %}selected{% endif %}>5_and_more</option>
+    </select>
+
+    <label for="bathroom">bathroom:</label>
+    <select id="bathroom" name="bathroom">
+        <option value="" {% if request.GET.order == '' %}selected{% endif %}>All</option>
+        <option value="combined" {% if request.GET.bathroom == 'combined' %}selected{% endif %}>combined</option>
+        <option value="separate" {% if request.GET.bathroom == 'separate' %}selected{% endif %}>separate</option>
+        <option value="several" {% if request.GET.bathroom == 'several' %}selected{% endif %}>several</option>
+    </select>
+    <br>
+        <button>Submit</button><hr>
+</form >
+
+
+
+<p>{{ message }}</p>

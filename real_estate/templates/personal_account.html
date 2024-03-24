@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ user }} Personal account</h2>
+    {% if profile %}
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: none;
+                padding: 10px;
+            }
+            .profile-item {
+                display: flex;
+                border: none;
+                margin: 10px 0;
+                padding: 10px;
+            }
+            .profile-image {
+                width: 200px;
+                height: 150px;
+                margin-right: 10px;
+            }
+            .profile-title {
+                font-weight: bold;
+                font-size: 18px;
+            }
+            .profile-description {
+                font-size: 14px;
+                line-height: 5px;
+            }
+        </style>
+
+        <div class="profile-item">
+            {% if profile.image %}
+                <img src="/media/{{ profile.image }}" alt="" class="profile-image">
+            {% else %}
+                <img src="{{ default_jpg }}" alt="" class="profile-image">
+            {% endif %}
+            <div>
+                <h2 class="profile-title">Profile</h2>
+                <p class="profile-description">first_name: {{ profile.first_name }}</p>
+                <p class="profile-description">last_name: {{ profile.last_name }}</p>
+                <p class="profile-description">email: {{ profile.email }}</p>
+                <p class="profile-description">phone_number: {{ profile.phone_number }}</p>
+                <p class="profile-description">role: {{ profile.role }}</p>
+            </div>
+        </div>
+        <a href="edite_profile">Edite Profile</a>
+    {% else %}
+        <a href="create_profile">Create Profile</a>
+    {% endif %}
+
+    <br>
+    <hr>
+    <br>
+
+
+
+    {% if profile.role == 'owner' %}
+            <a href="{% url 'create_announcement' %}">Create Announcement</a>
+        {% if estates %}
+            {% for estate in estates %}
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                    }
+                    header {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        border-bottom: 1px solid black;
+                        padding: 10px;
+                    }
+                    .estate-item {
+                        display: flex;
+                        border: 1px solid black;
+                        margin: 10px 0;
+                        padding: 10px;
+                    }
+                    .estate-image {
+                        width: 200px;
+                        height: 150px;
+                        margin-right: 10px;
+                    }
+                    .estate-title {
+                        font-weight: bold;
+                        font-size: 18px;
+                    }
+                    .estate-description {
+                        font-size: 14px;
+                        line-height: 5px;
+                    }
+                </style>
+
+                <div class="estate-item">
+                    {% if profile.image %}
+                        <img src="/media/{{ estate.title_photo }}" alt="" class="estate-image">
+                    {% else %}
+                        <img src="/media/{{ default_jpg }}" alt="" class="estate-image">
+                    {% endif %}
+                    <div>
+
+                <h2 class="estate-title">Real Estate for {{ estate.type_of_deal }}</h2>
+                <p class="estate-description">city_district: {{ estate.city_district }}</p>
+                <p class="estate-description">metro: {{ estate.metro }}</p>
+                <p class="estate-description">street: {{ estate.street }}</p>
+                <p class="estate-description">floor: {{ estate.floor }}/{{ estate.floors_in_house }}</p>
+                <p class="estate-description">rooms: {{ estate.rooms }}</p>
+                <p class="estate-description">rooms: {{ estate.created_at }}</p>
+                        <a href="{% url 'detail_estate' estate_id=estate.id %}">Detail</a>
+                    </div>
+                </div>
+                <a href="{% url 'edit_announcement' estate_id=estate.id %}">Edit Announcement</a>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+
+
+
+{% endblock %}

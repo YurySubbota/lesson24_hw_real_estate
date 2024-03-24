@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if users_profile %}
+        {% if users_profile.user != estate.owner %}
+            <a href="{% url 'deal_request' estate_id=estate.id %}">Create Deal Request</a>
+        {% endif %}
+    {% else %}
+        <p>if you want to Create Deal Request you must have profile(create profile in personal account after login)</p>
+    {% endif %}
+            <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: none;
+                padding: 10px;
+            }
+            .profile-item {
+                display: flex;
+                border: none;
+                margin: 10px 0;
+                padding: 10px;
+            }
+            .profile-image {
+                width: 200px;
+                height: 150px;
+                margin-right: 10px;
+            }
+
+            .profile-description {
+                font-size: 14px;
+                line-height: 5px;
+            }
+        </style>
+
+        <div class="profile-item">
+            {% if profile.image %}
+                <img src="/media/{{ profile.image }}" alt="" class="profile-image">
+            {% else %}
+                <img src="/media/{{ default_jpg }}" alt="" class="profile-image">
+            {% endif %}
+            <div>
+                <p class="profile-description">owner: {{ estate.owner }}</p>
+                <p class="profile-description">first_name: {{ profile.first_name }}</p>
+                <p class="profile-description">last_name: {{ profile.last_name }}</p>
+                <p class="profile-description">email: {{ profile.email }}</p>
+                <p class="profile-description">phone_number: {{ profile.phone_number }}</p>
+                <a href="{% url 'all_sellers_announcements' user_id=profile.user.id %}">All Sellers Announcements</a>
+            </div>
+        </div>
+
+        <div class="estate-item">
+            <div>
+                <h2 class="estate-title">Real Estate for {{ estate.type_of_deal }}</h2>
+                <p class="estate-description">city_district: {{ estate.city_district }}</p>
+                <p class="estate-description">metro: {{ estate.metro }}</p>
+                <p class="estate-description">street: {{ estate.street }}</p>
+                <p class="estate-description">building_number: {{ estate.building_number }}</p>
+                <p class="estate-description">floor: {{ estate.floor }}/{{ estate.floors_in_house }}</p>
+                <p class="estate-description">rooms: {{ estate.rooms }}</p>
+                <p class="estate-description">area_of_premise: {{ estate.area_of_premise }}</p>
+                <p class="estate-description">bathroom: {{ estate.bathroom }}</p>
+                <p class="estate-description">balcony: {{ estate.balcony }}</p>
+                <p class="estate-description">created_at: {{ estate.created_at }}</p>
+            </div>
+
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                }
+                header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-bottom: none;
+                    padding: 10px;
+                }
+                .photo-item {
+                    display: flex;
+                    border: none;
+                    margin: 10px 0;
+                    padding: 10px;
+                }
+                .photo-image {
+                    width: 400px;
+                    height: 300px;
+                    margin-right: 10px;
+                }
+
+            </style>
+            <div class="photo-item">
+                <img src="/media/{{ estate.title_photo }}" class="photo-image" alt="" style="{width: 400px; height: 300px; margin-right: 10px;}">
+                {% for photo in photos %}
+                    <img src="/media/{{ photo.photo }}" class="photo-image" alt="" style="{width: 400px; height: 300px; margin-right: 10px;}">
+                {% endfor %}
+            </div>
+        </div>
+
+{% endblock %}
+
+
+
