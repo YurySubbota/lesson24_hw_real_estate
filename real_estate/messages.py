@@ -26,5 +26,5 @@ def see_all_messages(request):
     if users_profile:
         if users_profile.role == 'owner':
             return DealRequest.objects.filter(estate__owner=request.user).order_by('-created_at')
-        elif users_profile.role == 'applicant':
+        if users_profile.role == 'applicant':
             return DealRequest.objects.filter(buyer=request.user).order_by('-created_at')

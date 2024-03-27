@@ -70,8 +70,7 @@ def create_announcement(request):
             estate.save()
             form.save_m2m()
             return redirect('personal_account')
-        else:
-            message = 'you must fill out'
+        message = 'you must fill out'
     else:
         form = RealEstateForm()
 
@@ -96,8 +95,7 @@ def edit_announcement(request, estate_id):
             estate.save()
             form.save_m2m()
             return redirect('personal_account')
-        else:
-            message = 'you must fill out'
+        message = 'you must fill out'
     else:
         form = RealEstateForm(instance=estate)
 
@@ -138,8 +136,7 @@ def deal_request_view(request, estate_id):
             deal_request.save()
             form.save_m2m()
             return redirect('personal_account')
-        else:
-            message = 'you must fill out'
+        message = 'you must fill out'
     else:
         form = DealRequestForm()
 
@@ -181,8 +178,7 @@ def add_photo(request, estate_id):
             photo.save()
             form.save_m2m()
             return redirect('edit_announcement', estate_id=estate_id)
-        else:
-            message = 'you must fill out'
+        message = 'you must fill out'
     else:
         form = PhotoForm()
 

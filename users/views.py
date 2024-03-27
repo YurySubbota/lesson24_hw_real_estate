@@ -27,8 +27,7 @@ def create_profile(request):
             profile.save()
             form.save_m2m()
             return redirect('personal_account')
-        else:
-            message = 'you must fill out Phone Number'
+        message = 'you must fill out Phone Number'
     else:
         form = ProfileForm()
 
@@ -49,8 +48,7 @@ def edite_profile(request):
             profile.save()
             form.save_m2m()
             return redirect('personal_account')
-        else:
-            message = 'you must fill out Phone Number'
+        message = 'you must fill out Phone Number'
     else:
         form = ProfileForm(instance=profile)
 
